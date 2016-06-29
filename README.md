@@ -36,7 +36,7 @@ Here's the easiest:
 Commands
 --------
 
-### Bust Frontend Browser Caches ###
+### Create Dummy Products ###
 
 This is very experimental
 
