@@ -1,0 +1,6 @@
+autoloaders:
+  GMdotnet: %module%/src
+
+commands:
+   customCommands:
+       - GMdotnet\Magento\Command\Product\Create\DummyCommand
