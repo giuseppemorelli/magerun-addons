@@ -31,9 +31,6 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             ->addArgument('product-status', InputArgument::OPTIONAL, 'Product Status (default: enabled)')
             ->addArgument('product-visibility', InputArgument::OPTIONAL, 'Product Visibility (default: visibile_both)')
             ->addArgument('product-number', InputArgument::OPTIONAL, 'Number of products to create')
-
-            // TODO: other arguments
-            //->addArgument('product-type', InputArgument::OPTIONAL, 'Product Type [simple, configurable, grouped]')
             ->setDescription('(Experimental) Create a dummy product [gmdotnet]')
         ;
     }
