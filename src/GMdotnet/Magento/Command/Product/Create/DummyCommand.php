@@ -24,12 +24,12 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
     {
         $this
             ->setName('product:create:dummy')
-            ->addArgument('attribute-set-id', InputArgument::OPTIONAL, 'Product Attribute Set Id')
-            ->addArgument('product-type', InputArgument::OPTIONAL, 'Product Type [simple]')
-            ->addArgument('sku-prefix', InputArgument::OPTIONAL, 'Prefix for product\'s sku')
-            ->addArgument('category-ids', InputArgument::OPTIONAL, 'Magento Categories for product association')
-            ->addArgument('product-status', InputArgument::OPTIONAL, 'Product Status [enabled, disabled]')
-            ->addArgument('product-visibility', InputArgument::OPTIONAL, 'Product Visibility [not_visible, visible_catalog, visible_search, visibile_both]')
+            ->addArgument('attribute-set-id', InputArgument::OPTIONAL, 'Attribute Set Id (default: Default with ID 4)')
+            ->addArgument('product-type', InputArgument::OPTIONAL, 'Product Type (default: simple)')
+            ->addArgument('sku-prefix', InputArgument::OPTIONAL, 'Prefix for product\'s sku (default: MAGPROD-)')
+            ->addArgument('category-ids', InputArgument::OPTIONAL, 'Categories for product association (comma separated - default null)')
+            ->addArgument('product-status', InputArgument::OPTIONAL, 'Product Status (default: enabled)')
+            ->addArgument('product-visibility', InputArgument::OPTIONAL, 'Product Visibility (default: visibile_both)')
             ->addArgument('product-number', InputArgument::OPTIONAL, 'Number of products to create')
 
             // TODO: other arguments
@@ -74,7 +74,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $question = new ChoiceQuestion(
                 'Please select Attribute Set (default: Default)',
                 $_attribute_sets,
-                0
+                4
             );
             $question->setErrorMessage('Attribute Set "%s" is invalid.');
             $response = explode("|", $helper->ask($input, $output, $question));
