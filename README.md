@@ -67,16 +67,15 @@ composer require gmdotnet/magerun-addons 1.0.x-dev
 $ n98-magerun.phar product:create:dummy
 ```
 
-Argument   | Description                               | Accepted Values  |
-:------- | :------------------------------------------ | :--------------- |
-`attribute-set-id` | Attribute Set Id (default: Default with ID 4) | only integer
-`product-type` | Product Type (default: simple) | `simple` [configurable - work in progress ] [grouped - work in progress]
-`sku-prefix` | Prefix for product's sku (default: MAGPROD-) | any
-`category-ids` | Categories for product association (comma separated - default null) | only integer with comma separated
-`product-status` | Product Status (default: enabled) | only integer -> `1` - for enabled -- `2` - for disabled
-`product-visibility` | Product Visibility (default: visibile_both) | only integer -> `1` - for not visible -- `2` - for visible in catalog -- `3` for visible in search -- `4` for visible in both
-`product-number` | Number of products to create | only integer
-
+Argument             | Description                                                         | Accepted Values                                                                                                                               |
+:------------------- | :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+`attribute-set-id`   | Attribute Set Id (default: Default with ID 4)                       | only integer
+`product-type`       | Product Type (default: simple)                                      | `simple` [configurable - work in progress ] [grouped - work in progress]
+`sku-prefix`         | Prefix for product's sku (default: MAGPROD-)                        | any
+`category-ids`       | Categories for product association (comma separated - default null) | only integer with comma separated
+`product-status`     | Product Status (default: enabled)                                   | only integer <br /> `1` - for enabled <br /> `2` - for disabled
+`product-visibility` | Product Visibility (default: visibile_both)                         | only integer <br /> `1` - for not visible <br /> `2` - for visible in catalog <br /> `3` for visible in search <br /> `4` for visible in both
+`product-number`     | Number of products to create                                        | only integer
 
 ## WORK IN PROGRESS
 - create dummy configurable products
