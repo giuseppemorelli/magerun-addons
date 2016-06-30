@@ -190,7 +190,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                     $_size = $collection->getSize();
                     if($_size > 0)
                     {
-                        $output->writeln("<comment>".$i.") PRODUCT: WITH SKU: '".$sku."' EXISTS! Skip</comment>\n");
+                        $output->writeln("<comment>".$i.") PRODUCT: WITH SKU: '".$sku."' EXISTS! Skip</comment>\r");
                         continue;
                     }
                     unset($collection);
