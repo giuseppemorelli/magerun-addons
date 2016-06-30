@@ -27,17 +27,17 @@ Here's the easiest:
 2. Clone the magerun-addons repository in there
 
         cd ~/.n98-magerun/modules/
-        git clone git@github.com:kalenjordan/magerun-addons.git
+        git clone git@github.com:gmdotnet/GMdotnet_MagerunAddons.git
 
-3. It should be installed.  To see that it was installed, check to see if one of the new commands is in there, like `diff:files`.
+3. It should be installed.  To see that it was installed, check to see if one of the new commands is in there, like `product:create:dummy`.
 
-        n98-magerun diff:files
+        n98-magerun product:create:dummy
 
 Commands
 --------
 
 ### Create Dummy Products ###
 
-This is very experimental
+This is very experimental. Create sample products with random content.
 
     $ n98-magerun product:create:dummy

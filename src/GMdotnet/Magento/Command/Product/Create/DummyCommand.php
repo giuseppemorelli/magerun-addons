@@ -12,9 +12,10 @@ use Symfony\Component\Console\Question\Question;
 
 class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 {
-    const DEFAULT_PRODUCT_ATTRIBUTE_SET_ID = 4;
-    const DEFAULT_PRODUCT_SHORT_DESCRIPTION = "Lorem ipsum short";
-    const DEFAULT_PRODUCT_DESCRIPTION = "Lorem ipsum";
+    const DEFAULT_PRODUCT_ATTRIBUTE_SET_ID = 4; // Default
+    const DEFAULT_PRODUCT_NAME = "Lorem ipsum dolor sit amet";
+    const DEFAULT_PRODUCT_SHORT_DESCRIPTION = "Lorem ipsum dolor sit amet. SHORT";
+    const DEFAULT_PRODUCT_DESCRIPTION = "Lorem ipsum dolor sit amet. LONG";
     const DEFAULT_PRODUCT_VISIBILITY = 4; // \Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
     const DEFAULT_PRODUCT_STATUS = 1; // \Mage_Catalog_Model_Product_Status::STATUS_ENABLED
     const DEFAULT_WEBSITE_ID = 1; // \Mage_Core_Model_App::DISTRO_STORE_ID -> magento 1.9
@@ -23,14 +24,16 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
     {
         $this
             ->setName('product:create:dummy')
+            ->addArgument('attribute-set-id', InputArgument::OPTIONAL, 'Product Attribute Set Id')
             ->addArgument('product-type', InputArgument::OPTIONAL, 'Product Type [simple]')
             ->addArgument('sku-prefix', InputArgument::OPTIONAL, 'Prefix for product\'s sku')
             ->addArgument('category-ids', InputArgument::OPTIONAL, 'Magento Categories for product association')
+            ->addArgument('product-status', InputArgument::OPTIONAL, 'Product Status [enabled, disabled]')
+            ->addArgument('product-visibility', InputArgument::OPTIONAL, 'Product Visibility [not_visible, visible_catalog, visible_search, visibile_both]')
             ->addArgument('product-number', InputArgument::OPTIONAL, 'Number of products to create')
 
             // TODO: other arguments
             //->addArgument('product-type', InputArgument::OPTIONAL, 'Product Type [simple, configurable, grouped]')
-            //->addArgument('attribute-set-id', InputArgument::OPTIONAL, 'Attribute Set Id')
             ->setDescription('(Experimental) Create a dummy product [gmdotnet]')
         ;
     }
@@ -52,6 +55,33 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
          */
         $helper = $this->getHelper('question');
         $_argument = array();
+
+        // ATTRIBUTE SET ID
+        if(is_null($input->getArgument('attribute-set-id'))) {
+
+            $attribute_set = \Mage::getModel('eav/entity_attribute_set')->getCollection()
+                ->addFieldToSelect('*')
+                ->addFieldToFilter('entity_type_id', array('eq' => 4))
+                ->setOrder('attribute_set_id', 'ASC');
+            ;
+            $_attribute_sets = array();
+            
+            foreach($attribute_set as $item)
+            {
+                $_attribute_sets[$item['attribute_set_id']] = $item['attribute_set_id']."|".$item['attribute_set_name'];
+            }
+            
+            $question = new ChoiceQuestion(
+                'Please select Attribute Set (default: Default)',
+                $_attribute_sets,
+                0
+            );
+            $question->setErrorMessage('Attribute Set "%s" is invalid.');
+            $response = explode("|", $helper->ask($input, $output, $question));
+            $input->setArgument('attribute-set-id', $response[0]);
+        }
+        $output->writeln('<info>Attribute Set selected: '.$input->getArgument('attribute-set-id')."</info>\r\n");
+        $_argument['attribute-set-id'] = $input->getArgument('attribute-set-id');
 
         // PRODUCT TYPE
         if(is_null($input->getArgument('product-type'))) {
@@ -82,6 +112,44 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $input->setArgument('category-ids', $helper->ask($input, $output, $question));
         }
         $output->writeln('<info>Category Ids choosed: ' . $input->getArgument('category-ids')."</info>\r\n");
+
+        // PRODUCT STATUS
+        if(is_null($input->getArgument('product-status'))) {
+            $_prod_status = array();
+            $_prod_status[\Mage_Catalog_Model_Product_Status::STATUS_ENABLED] = \Mage_Catalog_Model_Product_Status::STATUS_ENABLED."|Enabled";
+            $_prod_status[\Mage_Catalog_Model_Product_Status::STATUS_DISABLED] = \Mage_Catalog_Model_Product_Status::STATUS_DISABLED."|Disabled";
+            
+            $question = new ChoiceQuestion(
+                'Please select Product Status (default: enabled)',
+                $_prod_status,
+                0
+            );
+            $question->setErrorMessage('Product Status "%s" is invalid.');
+            $response = explode("|", $helper->ask($input, $output, $question));
+            $input->setArgument('product-status', $response[0]);
+        }
+        $output->writeln('<info>Product Status selected: '.$input->getArgument('product-status')."</info>\r\n");
+        $_argument['product-status'] = $input->getArgument('product-status');
+
+        // PRODUCT VISIBILITY
+        if(is_null($input->getArgument('product-visibility'))) {
+            $_prod_visibility = array();
+            $_prod_visibility[\Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE] = \Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE."|Not Visible";
+            $_prod_visibility[\Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG] = \Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG."|Visible in Catalog";
+            $_prod_visibility[\Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH] = \Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH."|Visibile in Search";
+            $_prod_visibility[\Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH] = \Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH."|Visible Both";
+
+            $question = new ChoiceQuestion(
+                'Please select Product Visibility (default: visible both)',
+                $_prod_visibility,
+                3
+            );
+            $question->setErrorMessage('Product Visibility "%s" is invalid.');
+            $response = explode("|", $helper->ask($input, $output, $question));
+            $input->setArgument('product-visibility', $response[0]);
+        }
+        $output->writeln('<info>Product Visibility selected: '.$input->getArgument('product-visibility')."</info>\r\n");
+        $_argument['product-visibility'] = $input->getArgument('product-visibility');
 
         // NUMBER OF PRODUCTS
         if(is_null($input->getArgument('product-number'))) {
@@ -131,16 +199,35 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                     try {
                         $product = \Mage::getModel('catalog/product');
                         $product->setTypeId(\Mage_Catalog_Model_Product_Type::TYPE_SIMPLE);
-                        $product->setAttributeSetId(self::DEFAULT_PRODUCT_ATTRIBUTE_SET_ID);
+                        if(!is_null($_argument['attribute-set-id']))
+                        {
+                            $product->setAttributeSetId($_argument['attribute-set-id']);
+                        }
+                        else {
+                            $product->setAttributeSetId(self::DEFAULT_PRODUCT_ATTRIBUTE_SET_ID);
+                        }
                         $product->setWebsiteIds(array(self::DEFAULT_WEBSITE_ID));
 
-                        $product->setName($sku." ".$i);
+                        $product->setName(self::DEFAULT_PRODUCT_NAME." ".$sku);
                         $product->setDescription(self::DEFAULT_PRODUCT_DESCRIPTION);
                         $product->setShortDescription(self::DEFAULT_PRODUCT_SHORT_DESCRIPTION);
                         $product->setSku($sku);
                         $product->setWeight(rand(1, 99));
-                        $product->setStatus(self::DEFAULT_PRODUCT_STATUS);
-                        $product->setVisibility(self::DEFAULT_PRODUCT_VISIBILITY);
+
+                        if(!is_null($_argument['product-status']))
+                        {
+                            $product->setStatus($_argument['product-status']);
+                        }
+                        else {
+                            $product->setStatus(self::DEFAULT_PRODUCT_STATUS);
+                        }
+                        if(!is_null($_argument['product-visibility']))
+                        {
+                            $product->setVisibility($_argument['product-visibility']);
+                        }
+                        else {
+                            $product->setVisibility(self::DEFAULT_PRODUCT_VISIBILITY);
+                        }
                         $product->setPrice(rand(10, 999));
                         $product->setTaxClassId(0);
 
