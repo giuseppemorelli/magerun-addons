@@ -74,7 +74,7 @@ Argument             | Description                                              
 `sku-prefix`         | Prefix for product's sku (default: MAGPROD-)                        | any
 `category-ids`       | Categories for product association (comma separated - default null) | only integer with comma separated
 `product-status`     | Product Status (default: enabled)                                   | only integer <br /> `1` - for enabled <br /> `2` - for disabled
-`product-visibility` | Product Visibility (default: visibile_both)                         | only integer <br /> `1` - for not visible <br /> `2` - for visible in catalog <br /> `3` for visible in search <br /> `4` for visible in both
+`product-visibility` | Product Visibility (default: visibile_both)                         | only integer <br /> `1` - for not visible <br /> `2` - for visible in catalog <br /> `3` - for visible in search <br /> `4` - for visible in both
 `product-number`     | Number of products to create                                        | only integer
 
 ## WORK IN PROGRESS
@@ -82,13 +82,13 @@ Argument             | Description                                              
 - create dummy grouped products
 
 ## Contribution
-Any contribution is highly appreciated. The best way to contribute code is to open a [pull request on GitHub](https://help.github.com/articles/using-pull-requests). Please create your pull request against the `develop` branch
+Any contribution is highly appreciated. The best way to contribute code is to open a [pull request on GitHub](https://help.github.com/articles/using-pull-requests).<br />Please create your pull request against the `develop` branch
 
 ## License
 [OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
 
 ## Credits
 
-Thanks to [NETZ98](http://www.netz98.de/) for creating this incredible tools.
-Thanks to [Kalen Jordan](https://github.com/kalenjordan) and [Peter Jaap Blaakmeer](https://github.com/peterjaap) to start contributing n98-magerun with his addons.
+Thanks to [NETZ98](http://www.netz98.de/) for creating this incredible tools.<br />
+Thanks to [Kalen Jordan](https://github.com/kalenjordan) and [Peter Jaap Blaakmeer](https://github.com/peterjaap) to start contributing n98-magerun with their addons.<br />
 Thanks to [lorempixel.com](http://lorempixel.com) for the sample images.
