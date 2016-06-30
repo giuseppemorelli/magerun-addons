@@ -45,7 +45,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
         $this->detectMagento($output, true);
         $this->initMagento();
 
-        $output->writeln("<warning>This is experimental and it only create sample product.</warning>\r\n");
+        $output->writeln("<warning>This is experimental and it only create sample products.</warning>\r\n");
 
         /**
          * ARGUMENTS
@@ -77,7 +77,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $response = explode("|", $helper->ask($input, $output, $question));
             $input->setArgument('attribute-set-id', $response[0]);
         }
-        $output->writeln('<info>Attribute Set selected: '.$input->getArgument('attribute-set-id')."</info>\r\n");
+        $output->writeln('<info>Attribute Set ID selected: '.$input->getArgument('attribute-set-id')."</info>\r\n");
         $_argument['attribute-set-id'] = $input->getArgument('attribute-set-id');
 
         // PRODUCT TYPE
@@ -97,7 +97,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 
         // SKU PREFIX
         if(is_null($input->getArgument('sku-prefix'))) {
-            $question = new Question("Please enter the product's sku prefix (default MAGPROD-): \r\n", "MAGPROD-");
+            $question = new Question("Please enter the product sku prefix (default MAGPROD-): ", "MAGPROD-");
             $input->setArgument('sku-prefix', $helper->ask($input, $output, $question));
         }
         $output->writeln('<info>SKU PREFIX: ' . $input->getArgument('sku-prefix')."</info>\r\n");
@@ -105,7 +105,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 
         // CATEGORY IDS
         if(is_null($input->getArgument('category-ids'))) {
-            $question = new Question("Please enter the category ids for product association (comma separated): \r\n", null);
+            $question = new Question("Please enter the category ids for product association (comma separated): ", null);
             $input->setArgument('category-ids', $helper->ask($input, $output, $question));
         }
         $output->writeln('<info>Category Ids choosed: ' . $input->getArgument('category-ids')."</info>\r\n");
@@ -150,7 +150,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 
         // NUMBER OF PRODUCTS
         if(is_null($input->getArgument('product-number'))) {
-            $question = new Question("Please enter the number of product to create (default 1): \r\n", 1);
+            $question = new Question("Please enter the number of products to create (default 1): ", 1);
             $question->setValidator(function ($answer) {
                 $answer = (int)($answer);
                 if (!is_int($answer) || $answer <= 0) {
@@ -237,7 +237,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                         $_file_image = array();
                         for($count = 0; $count < 3; $count++)
                         {
-                            $_tmp_image[$count] = file_get_contents('http://lorempixel.com/400/400/');
+                            $_tmp_image[$count] = file_get_contents('http://lorempixel.com/600/600/');
                             $_file_image[$count] = \Mage::getBaseDir('media').DS."import/".$sku."-".sha1($sku.$count).".jpg";
                             file_put_contents($_file_image[$count], $_tmp_image[$count]);
                             $product->addImageToMediaGallery($_file_image[$count], array('image','thumbnail','small_image'), false, false);
