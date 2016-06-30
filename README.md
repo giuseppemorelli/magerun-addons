@@ -77,8 +77,9 @@ Argument             | Description                                              
 `product-visibility` | Product Visibility (default: visibile_both)                         | only integer <br /> `1` - for not visible <br /> `2` - for visible in catalog <br /> `3` - for visible in search <br /> `4` - for visible in both
 `product-number`     | Number of products to create                                        | only integer
 
-** INFO **
-This command save temp image into `MAGENTO_ROOT/media/import/` folder with this filename: `<SKU-PREFIX><COUNTER>."-".sha1(<SKU-PREFIX><COUNTER>).".jpg"`<br />
+**INFO**
+<br /><br />
+This command save temp image into `MAGENTO_ROOT/media/import/` folder with this filename: <br />`<SKU-PREFIX><COUNTER>."-".sha1(<SKU-PREFIX><COUNTER>).".jpg"`<br /><br />
 After creation you can clean the folder if you want.
 
 
