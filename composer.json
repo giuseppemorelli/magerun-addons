@@ -1,0 +1,19 @@
+{
+  "name": "gmdotnet/magerun-addons",
+  "description": "Addon commands for N98 MageRun",
+  "type": "magento-module",
+  "homepage": "https://github.com/gmdotnet/GMdotnet_MagerunAddons",
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "autoload": {
+    "psr-0": {
+      "GMdotnet": "src/"
+    }
+  }
+}
