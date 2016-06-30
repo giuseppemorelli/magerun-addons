@@ -72,9 +72,9 @@ Argument   | Description
 `attribute-set-id` | Attribute Set Id (default: Default with ID 4)
 `product-type` | Product Type (default: simple)
 `sku-prefix` | Prefix for product's sku (default: MAGPROD-)
-`category-ids` | Categories for product association (comma separated)
+`category-ids` | Categories for product association (comma separated - default null)
 `product-status` | Product Status (default: enabled)
-`product-visibility` | Product Visibility [not_visible, visible_catalog, visible_search, visibile_both]
+`product-visibility` | Product Visibility (default: visibile_both)
 `product-number` | Number of products to create
 
 
