@@ -120,8 +120,9 @@ Argument                     | Description                                      
 - 0.0.1 (beta)
 
 ## WORK IN PROGRESS
-- create dummy configurable products
 - create dummy grouped products
+- create dummy virtual products
+- create dummy bundle products
 
 ## Contribution
 Any contribution is highly appreciated. The best way to contribute code is to open a [pull request on GitHub](https://help.github.com/articles/using-pull-requests).<br />Please create your pull request against the `develop` branch
