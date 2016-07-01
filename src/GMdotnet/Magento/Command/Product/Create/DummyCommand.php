@@ -6,6 +6,7 @@ use N98\Magento\Application;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
@@ -71,7 +72,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $question = new ChoiceQuestion(
                 'Please select Attribute Set (default: Default)',
                 $_attribute_sets,
-                4
+                self::DEFAULT_PRODUCT_ATTRIBUTE_SET_ID
             );
             $question->setErrorMessage('Attribute Set "%s" is invalid.');
             $response = explode("|", $helper->ask($input, $output, $question));
@@ -84,7 +85,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
         if(is_null($input->getArgument('product-type'))) {
             $question = new ChoiceQuestion(
                 'Please select Magento Product type (default: simple)',
-                array(\Mage_Catalog_Model_Product_Type::TYPE_SIMPLE),
+                array(\Mage_Catalog_Model_Product_Type::TYPE_SIMPLE, \Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE),
                 // TODO: create other type
                 //array('simple', 'configurable', 'grouped'),
                 0
@@ -115,11 +116,11 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $_prod_status = array();
             $_prod_status[\Mage_Catalog_Model_Product_Status::STATUS_ENABLED] = \Mage_Catalog_Model_Product_Status::STATUS_ENABLED."|Enabled";
             $_prod_status[\Mage_Catalog_Model_Product_Status::STATUS_DISABLED] = \Mage_Catalog_Model_Product_Status::STATUS_DISABLED."|Disabled";
-            
+
             $question = new ChoiceQuestion(
                 'Please select Product Status (default: enabled)',
                 $_prod_status,
-                0
+                self::DEFAULT_PRODUCT_STATUS
             );
             $question->setErrorMessage('Product Status "%s" is invalid.');
             $response = explode("|", $helper->ask($input, $output, $question));
@@ -139,7 +140,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $question = new ChoiceQuestion(
                 'Please select Product Visibility (default: visible both)',
                 $_prod_visibility,
-                3
+                self::DEFAULT_PRODUCT_VISIBILITY
             );
             $question->setErrorMessage('Product Visibility "%s" is invalid.');
             $response = explode("|", $helper->ask($input, $output, $question));
@@ -196,13 +197,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                     try {
                         $product = \Mage::getModel('catalog/product');
                         $product->setTypeId(\Mage_Catalog_Model_Product_Type::TYPE_SIMPLE);
-                        if(!is_null($_argument['attribute-set-id']))
-                        {
-                            $product->setAttributeSetId($_argument['attribute-set-id']);
-                        }
-                        else {
-                            $product->setAttributeSetId(self::DEFAULT_PRODUCT_ATTRIBUTE_SET_ID);
-                        }
+                        $product->setAttributeSetId($_argument['attribute-set-id']);
                         $product->setWebsiteIds(array(self::DEFAULT_WEBSITE_ID));
 
                         $product->setName(self::DEFAULT_PRODUCT_NAME." ".$sku);
@@ -210,21 +205,8 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                         $product->setShortDescription(self::DEFAULT_PRODUCT_SHORT_DESCRIPTION);
                         $product->setSku($sku);
                         $product->setWeight(rand(1, 99));
-
-                        if(!is_null($_argument['product-status']))
-                        {
-                            $product->setStatus($_argument['product-status']);
-                        }
-                        else {
-                            $product->setStatus(self::DEFAULT_PRODUCT_STATUS);
-                        }
-                        if(!is_null($_argument['product-visibility']))
-                        {
-                            $product->setVisibility($_argument['product-visibility']);
-                        }
-                        else {
-                            $product->setVisibility(self::DEFAULT_PRODUCT_VISIBILITY);
-                        }
+                        $product->setStatus($_argument['product-status']);
+                        $product->setVisibility($_argument['product-visibility']);
                         $product->setPrice(rand(10, 999));
                         $product->setTaxClassId(0);
 
@@ -237,7 +219,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                         $_file_image = array();
                         for($count = 0; $count < 3; $count++)
                         {
-                            $_tmp_image[$count] = file_get_contents('http://lorempixel.com/600/600/');
+                            $_tmp_image[$count] = file_get_contents('http://lorempixel.com/600/600/?'.sha1($sku.$count));
                             $_file_image[$count] = \Mage::getBaseDir('media').DS."import/".$sku."-".sha1($sku.$count).".jpg";
                             file_put_contents($_file_image[$count], $_tmp_image[$count]);
                             $product->addImageToMediaGallery($_file_image[$count], array('image','thumbnail','small_image'), false, false);
@@ -279,6 +261,91 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                     }
                     unset($_size);
                     unset($product);
+                    break;
+                }
+                case \Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE:
+                {
+                    $_attributes = array();
+                    
+                    // NUMBER OF CONFIGURABLE ATTRIBUTES
+                    $question = new Question("Please enter the number of configurable attributes to use (default 1): ", 1);
+                    $question->setValidator(function ($answer) {
+                        $answer = (int)($answer);
+                        if (!is_int($answer) || $answer <= 0) {
+                            throw new \RuntimeException(
+                                'Please enter an integer value or > 0'
+                            );
+                        }
+                        return $answer;
+                    });
+                    $_argument['attribute-configurable-number'] = $helper->ask($input, $output, $question);
+                    $output->writeln('<info>Number of configurable attribute to use: ' . $_argument['attribute-configurable-number']."</info>\r\n");
+
+                    for($k = 0; $k < $_argument['attribute-configurable-number']; $k++)
+                    {
+                        $question = new Question("Please enter the n.".$k." configurable attribute CODE to use: ", "");
+                        $_attributes[$k] = strtolower($helper->ask($input, $output, $question));
+                        $output->writeln("<info>CONFIGURABLE ATTRIBUTE n.".$k." CHOOSED: ".$_attributes[$k]."</info>\r\n");
+                    }
+                    
+                    // NUMBER OF CHILDREN PRODUCTS
+                    $question = new Question("Please enter the number of children for each configurable product (default 1): ", 1);
+                    $question->setValidator(function ($answer) {
+                        $answer = (int)($answer);
+                        if (!is_int($answer) || $answer <= 0) {
+                            throw new \RuntimeException(
+                                'Please enter an integer value or > 0'
+                            );
+                        }
+                        return $answer;
+                    });
+                    $_argument['product-children-number'] = $helper->ask($input, $output, $question);
+                    $output->writeln('<info>Number of children to create: ' . $_argument['product-children-number']."</info>\r\n");
+                    
+                    // CREATE CHILDREN PRODUCTS
+                    for($q = 0; $q < $_argument['product-children-number']; $q++) {
+
+                        $sku_child = $_argument['sku-prefix'] . "CHILD-".$q;
+
+                        $command = $this->getApplication()->find('product:create:dummy');
+                        $arguments = array(
+                            'command' => 'product:create:dummy',
+                            'attribute-set-id' => $_argument['attribute-set-id'],
+                            'product-type' => \Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
+                            'sku-prefix' => $sku_child,
+                            'category-ids' => $_argument['category-ids'],
+                            'product-status' => \Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
+                            'product-visibility' => \Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE,
+                            'product-number' => 1
+                        );
+
+                        $greetInput = new ArrayInput($arguments);
+                        $returnCode = $command->run($greetInput, $output);
+
+                        // SKU CHILD CREATED - it adds a zero at the end
+                        $sku_child .= 0;
+                        $prod_collection = \Mage::getModel('catalog/product')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addAttributeToFilter('sku', array('eq' => $sku_child))
+                        ;
+                        $_product_child = $prod_collection->getFirstItem();
+
+                        foreach($_attributes as $child_attr)
+                        {
+                            $attributeInfo = \Mage::getResourceModel('eav/entity_attribute_collection')->setCodeFilter($child_attr)->getFirstItem();
+                            $attributeId = $attributeInfo->getAttributeId();
+                            $attribute = \Mage::getModel('catalog/resource_eav_attribute')->load($attributeId);
+                            $attributeOptions = $attribute ->getSource()->getAllOptions(false);
+                            $_product_child->setData($child_attr, $attributeOptions[$q]['value']);
+                            $_product_child->getResource()->saveAttribute($_product_child, $child_attr);
+                        }
+
+                        
+                    }
+                    break;
+                }
+                case \Mage_Catalog_Model_Product_Type::TYPE_GROUPED:
+                {
                     break;
                 }
                 default:
