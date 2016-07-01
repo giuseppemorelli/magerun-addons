@@ -3,7 +3,7 @@ GMdotnet_MagerunAddons
 
 Additional commands for [n98-magerun](https://github.com/netz98/n98-magerun).
 
-#### This is a tools only for development environment. Please, do not use in production environment! 
+#### This is a tools only for develop environment. Please, do not use in production environment! 
 
 ## Installation
 
