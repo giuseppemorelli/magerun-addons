@@ -126,21 +126,21 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 
         // STORE ID
         if(is_null($input->getArgument('store-id'))) {
-            $website_id = \Mage::getModel('core/store')->getCollection()
+            $store_id = \Mage::getModel('core/store')->getCollection()
                 ->addFieldToSelect('*')
                 ->addFieldToFilter('store_id', array('gt' => 0))
                 ->setOrder('store_id', 'ASC');
             ;
-            $_website_ids = array();
+            $_store_ids = array();
 
-            foreach($website_id as $item)
+            foreach($store_id as $item)
             {
-                $_website_ids[$item['store_id']] = $item['store_id']."|".$item['code'];
+                $_store_ids[$item['store_id']] = $item['store_id']."|".$item['code'];
             }
 
             $question = new ChoiceQuestion(
                 'Please select Store ID (default: 1)',
-                $_website_ids,
+                $_store_ids,
                 self::DEFAULT_STORE_ID
             );
             $question->setErrorMessage('Store ID "%s" is invalid.');
