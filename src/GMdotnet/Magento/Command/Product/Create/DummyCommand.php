@@ -29,6 +29,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
     {
         $this
             ->setName('product:create:dummy')
+            ->addArgument('website-id', InputArgument::OPTIONAL, 'Website Id to create products (default: 1)')
             ->addArgument('attribute-set-id', InputArgument::OPTIONAL, 'Attribute Set Id (default: Default with ID 4)')
             ->addArgument('product-type', InputArgument::OPTIONAL, 'Product Type (default: simple)')
             ->addArgument('sku-prefix', InputArgument::OPTIONAL, 'Prefix for product\'s sku (default: MAGPROD-)')
@@ -105,6 +106,32 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
          */
         $helper = $this->getHelper('question');
         $_argument = array();
+
+        // WEBSITE ID
+        if(is_null($input->getArgument('website-id'))) {
+            $website_id = \Mage::getModel('core/website')->getCollection()
+                ->addFieldToSelect('*')
+                ->addFieldToFilter('website_id', array('gt' => 0))
+                ->setOrder('website_id', 'ASC');
+            ;
+            $_website_ids = array();
+
+            foreach($website_id as $item)
+            {
+                $_website_ids[$item['website_id']] = $item['website_id']."|".$item['name'];
+            }
+
+            $question = new ChoiceQuestion(
+                'Please select Website ID (default: 1)',
+                $_website_ids,
+                self::DEFAULT_WEBSITE_ID
+            );
+            $question->setErrorMessage('Website ID "%s" is invalid.');
+            $response = explode("|", $helper->ask($input, $output, $question));
+            $input->setArgument('website-id', $response[0]);
+        }
+        $output->writeln('<info>Website ID selected: '.$input->getArgument('website-id')."</info>\r\n");
+        $_argument['website-id'] = $input->getArgument('website-id');
 
         // ATTRIBUTE SET ID
         if(is_null($input->getArgument('attribute-set-id'))) {
@@ -297,7 +324,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $product = \Mage::getModel('catalog/product');
             $product->setTypeId($_argument['product-type']);
             $product->setAttributeSetId($_argument['attribute-set-id']);
-            $product->setWebsiteIds(array(self::DEFAULT_WEBSITE_ID));
+            $product->setWebsiteIds(array($_argument['website-id']));
 
             $product->setName(self::DEFAULT_PRODUCT_NAME." ".$sku);
             $product->setDescription(self::DEFAULT_PRODUCT_DESCRIPTION);
@@ -375,6 +402,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 
             $_sku_child = $_argument['sku-prefix'] . "CHILD-";
             $_child_argument = array(
+                'website-id' => $_argument['website-id'],
                 'attribute-set-id' => $_argument['attribute-set-id'],
                 'product-type' => \Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
                 'sku-prefix' => $_sku_child,
@@ -431,7 +459,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $product_parent = \Mage::getModel('catalog/product');
             $product_parent->setTypeId($_argument['product-type']);
             $product_parent->setAttributeSetId($_argument['attribute-set-id']);
-            $product_parent->setWebsiteIds(array(self::DEFAULT_WEBSITE_ID));
+            $product_parent->setWebsiteIds(array($_argument['website-id']));
 
             $product_parent->setName(self::DEFAULT_PRODUCT_NAME . " " . $sku);
             $product_parent->setDescription(self::DEFAULT_PRODUCT_DESCRIPTION);

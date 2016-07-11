@@ -71,6 +71,7 @@ $ n98-magerun.phar product:create:dummy
 
 Argument             | Description                                                         | Accepted Values                                                                                                                               |
 :------------------- | :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+`website-id`         | Website ID (default: 1)                                             | only integer
 `attribute-set-id`   | Attribute Set Id (default: Default with ID 4)                       | only integer
 `product-type`       | Product Type (default: simple)                                      | `simple`<br />`configurable`<br />[grouped - work in progress]
 `sku-prefix`         | Prefix for product's sku (default: MAGPROD-)                        | any
@@ -84,9 +85,9 @@ Extra options asked only for configurabile products (actually **only in interact
 
 Argument                        | Description                                                    | Accepted Values     |
 :------------------------------ | :------------------------------------------------------------- | :------------------ |
-`attribute-configurable-number` | Number of configurable attributes to use ("super attributes")  | only integer
-`attribute-configurable-codes`  | Attribute codes for configurable products ("super attributes") | only text
-`product-children-number`       | Number of products children                                    | only integer 
+`attribute-configurable-number` | Number of configurable attributes to use ("super attributes")  | only integer        |
+`attribute-configurable-codes`  | Attribute codes for configurable products ("super attributes") | only text           |
+`product-children-number`       | Number of products children                                    | only integer        |
 
 
 ####INFO
