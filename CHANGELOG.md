@@ -8,3 +8,6 @@ GMdotnet_MagerunAddons
 ## 0.0.2
 - create categories in specific store (not only default store)
 - create products in specific website (not only default website)
+
+## 0.0.3
+- create sample value for dropdown attributes
