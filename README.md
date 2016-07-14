@@ -50,7 +50,7 @@ Add the repository GMdotnet_MagerunAddons to your composer:
 Install the module
 
 ```
-composer require gmdotnet/magerun-addons 1.0.x-dev
+composer require gmdotnet/magerun-addons <last version>
 ```
 
 (you need [modman](https://github.com/colinmollenhour/modman) as a pre-requisite)
@@ -115,13 +115,30 @@ Argument                     | Description                                      
 `category-name-prefix`       | Category Name Prefix (default: 'My Awesome Category')                                       | any                                              |
 `category-number`            | Number of categories to create (default: 1)                                                 | only integer                                     |
 
+### Create Dummy Attribute Values ###
+
+(experimental). Create dummy attribute values (ONLY FOR DROPDOWN ATTRIBUTE)
+
+**Interactive mode** or via **shell arguments** or mixed.
+
+```
+$ n98-magerun.phar eav:attribute:create-dummy-values
+```
+
+Argument                     | Description                                  | Accepted Values                                              |
+:--------------------------- | :--------------------------------------------| :----------------------------------------------------------- |
+`attribute-id`               | Attribute ID to add values                   | only integer
+`values-type`                | Types of Values to create (default integer)  | `int`<br />`string`<br />`color`<br />`size`<br />`designer`
+`values-number`              | Number of Values to create (default 1)       | only integer
+
+
 ## Requirements
 - (tested with n98-magerun 1.96.1)
 - (tested with magento 1.9.x)
 - (tested with php 5.6)
 
 ## Version
-- 0.0.2 (beta)
+- 0.0.3 (beta)
 
 ## WORK IN PROGRESS
 - create dummy grouped products
