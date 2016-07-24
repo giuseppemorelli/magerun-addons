@@ -30,25 +30,6 @@ MAGENTO_ROOT/lib/n98-magerun/modules/
  
 #### A folder inside the Magento installation (with composer)
 
-Add the repository GMdotnet_MagerunAddons to your composer:
-
-```
-{
-  ...
-  "repositories": [
-    ...
-    {
-      "type": "vcs",
-      "url": "https://github.com/gmdotnet/GMdotnet_MagerunAddons.git"
-    }
-    ...
-  ]
-  ...
-}
-```
-
-Install the module
-
 ```
 composer require gmdotnet/magerun-addons <last version>
 ```
