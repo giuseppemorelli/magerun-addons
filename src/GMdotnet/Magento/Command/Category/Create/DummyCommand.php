@@ -26,7 +26,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             ->addArgument('children-categories-number', InputArgument::OPTIONAL, "Number of children for each category created (default: 0 - use '-1' for random from 0 to 5)")
             ->addArgument('category-name-prefix', InputArgument::OPTIONAL, "Category Name Prefix (default: 'My Awesome Category')")
             ->addArgument('category-number', InputArgument::OPTIONAL, 'Number of categories to create (default: 1)')
-            ->setDescription('(Experimental) Create a dummy category [gmdotnet]')
+            ->setDescription('Create a dummy category [gmdotnet]')
         ;
     }
 
@@ -40,7 +40,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
         $this->detectMagento($output, true);
         $this->initMagento();
 
-        $output->writeln("<warning>This is experimental and it only create sample categories.</warning>\r\n");
+        $output->writeln("<warning>This only create sample categories, do not use on production environment</warning>\r\n");
 
         // MANAGE ARGUMENTS
         $_argument = $this->manageArguments($input, $output);
@@ -150,6 +150,23 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
         $output->writeln('<info>Store ID selected: '.$input->getArgument('store-id')."</info>\r\n");
         $_argument['store-id'] = $input->getArgument('store-id');
 
+        // NUMBER OF CATEGORIES
+        if(is_null($input->getArgument('category-number'))) {
+            $question = new Question("Please enter the number of categories to create (default 1): ", 1);
+            $question->setValidator(function ($answer) {
+                $answer = (int)($answer);
+                if (!is_int($answer) || $answer <= 0) {
+                    throw new \RuntimeException(
+                        'Please enter an integer value or > 0'
+                    );
+                }
+                return $answer;
+            });
+            $input->setArgument('category-number', $helper->ask($input, $output, $question));
+        }
+        $output->writeln('<info>Number of categories to create: ' . $input->getArgument('category-number')."</info>\r\n");
+        $_argument['category-number'] = $input->getArgument('category-number');
+
         // NUMBER OF CHILDREN CATEGORIES
         if(is_null($input->getArgument('children-categories-number'))) {
             $question = new Question("Number of children for each category created (default: 0 - use '-1' for random from 0 to 5): ", 0);
@@ -177,23 +194,6 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
         }
         $output->writeln('<info>CATEGORY NAME PREFIX: ' . $input->getArgument('category-name-prefix')."</info>\r\n");
         $_argument['category-name-prefix'] = $input->getArgument('category-name-prefix');
-
-        // NUMBER OF CATEGORIES
-        if(is_null($input->getArgument('category-number'))) {
-            $question = new Question("Please enter the number of categories to create (default 1): ", 1);
-            $question->setValidator(function ($answer) {
-                $answer = (int)($answer);
-                if (!is_int($answer) || $answer <= 0) {
-                    throw new \RuntimeException(
-                        'Please enter an integer value or > 0'
-                    );
-                }
-                return $answer;
-            });
-            $input->setArgument('category-number', $helper->ask($input, $output, $question));
-        }
-        $output->writeln('<info>Number of categories to create: ' . $input->getArgument('category-number')."</info>\r\n");
-        $_argument['category-number'] = $input->getArgument('category-number');
 
         return $_argument;
     }
