@@ -1,6 +1,6 @@
 <?php
 
-namespace GMdotnet\Magento\Command\Category\Create;
+namespace N98\Magento\Command\Category\Create;
 
 use N98\Magento\Application;
 use Symfony\Component\Console\Input\InputArgument;
@@ -23,9 +23,9 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
         $this
             ->setName('category:create:dummy')
             ->addArgument('store-id', InputArgument::OPTIONAL, 'Id of Store to create categories (default: 1)')
+            ->addArgument('category-number', InputArgument::OPTIONAL, 'Number of categories to create (default: 1)')
             ->addArgument('children-categories-number', InputArgument::OPTIONAL, "Number of children for each category created (default: 0 - use '-1' for random from 0 to 5)")
             ->addArgument('category-name-prefix', InputArgument::OPTIONAL, "Category Name Prefix (default: 'My Awesome Category')")
-            ->addArgument('category-number', InputArgument::OPTIONAL, 'Number of categories to create (default: 1)')
             ->setDescription('Create a dummy category [gmdotnet]');
     }
 
