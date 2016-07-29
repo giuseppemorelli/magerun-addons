@@ -1,6 +1,6 @@
 <?php
 
-namespace N98\Magento\Command\Category\Create;
+namespace GMdotnet\Magento\Command\Category\Create;
 
 use N98\Magento\Application;
 use Symfony\Component\Console\Input\InputArgument;
