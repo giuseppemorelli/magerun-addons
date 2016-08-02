@@ -7,14 +7,12 @@ use N98\Magento\Command\PHPUnit\TestCase;
 
 class DummyCommandTest extends TestCase
 {
-    /**
-     * outputBuffering
-     */
+
     public function testExecute()
     {
         $application = $this->getApplication();
         $application->add(new DummyCommand());
-        $command = $this->getApplication()->find('category:create:dummy');
+        $command = $application->find('category:create:dummy');
         $commandTester = new CommandTester($command);
 
         $commandTester->execute(
@@ -26,8 +24,6 @@ class DummyCommandTest extends TestCase
                 'category-number'            => 1
             )
         );
-
-        $this->testmanageArguments();
 
         $this->assertRegExp('/CATEGORY: \'My Awesome Category (.+)\' WITH ID: \'(.+)\' CREATED!/', $commandTester->getDisplay());
         $this->assertRegExp('/CATEGORY CHILD: \'My Awesome Category (.+)\' WITH ID: \'(.+)\' CREATED!/', $commandTester->getDisplay());
@@ -57,23 +53,62 @@ class DummyCommandTest extends TestCase
         \Mage::getModel('catalog/category')->load($_category_id)->delete();
     }
 
-    /**
-     * @outputBuffering
-     */
     public function testmanageArguments()
     {
         $application = $this->getApplication();
         $application->add(new DummyCommand());
-        $command = $this->getApplication()->find('category:create:dummy');
+        $command = $application->find('category:create:dummy');
+
+        $dialog = $this->getMock('Symfony\Component\Console\Helper\QuestionHelper', array('ask'));
+
+        // ASK - store-id
+        $dialog->expects($this->any())
+            ->method('ask')
+            ->with(
+                $this->isInstanceOf('Symfony\Component\Console\Input\InputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Output\OutputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Question\Question')
+            )
+            ->will($this->returnValue(1));
+
+        // ASK - children-categories-number
+        $dialog->expects($this->any())
+            ->method('ask')
+            ->with(
+                $this->isInstanceOf('Symfony\Component\Console\Input\InputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Output\OutputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Question\Question')
+            )
+            ->will($this->returnValue(0));
+
+        // ASK - category-name-prefix
+        $dialog->expects($this->any())
+            ->method('ask')
+            ->with(
+                $this->isInstanceOf('Symfony\Component\Console\Input\InputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Output\OutputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Question\Question')
+            )
+            ->will($this->returnValue('My Awesome Category '));
+
+        // ASK - category-number
+        $dialog->expects($this->any())
+            ->method('ask')
+            ->with(
+                $this->isInstanceOf('Symfony\Component\Console\Input\InputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Output\OutputInterface'),
+                $this->isInstanceOf('Symfony\Component\Console\Question\Question')
+            )
+            ->will($this->returnValue(0));
+
+        // We override the standard helper with our mock
+        $command->getHelperSet()->set($dialog, 'dialog');
+
         $commandTester = new CommandTester($command);
 
         $commandTester->execute(
             array(
                 'command'                    => $command->getName(),
-                'store-id'                   => 1,
-                'children-categories-number' => 0,
-                'category-name-prefix'       => 'My Awesome Category',
-                'category-number'            => 0
             )
         );
 
@@ -82,10 +117,5 @@ class DummyCommandTest extends TestCase
         $this->assertArrayHasKey('children-categories-number', $arguments);
         $this->assertArrayHasKey('category-name-prefix', $arguments);
         $this->assertArrayHasKey('category-number', $arguments);
-
-        $this->assertTrue(is_integer($arguments['store-id']));
-        $this->assertTrue(is_integer($arguments['children-categories-number']));
-        $this->assertTrue(is_string($arguments['category-name-prefix']));
-        $this->assertTrue(is_integer($arguments['category-number']));
     }
 }
