@@ -75,7 +75,11 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
             $category->setIsActive(self::DEFAULT_CATEGORY_STATUS);
             $category->setDisplayMode('PRODUCTS');
             $category->setIsAnchor(self::DEFAULT_CATEGORY_ANCHOR);
-            $category->setStoreId($_argument['store-id']);
+
+            if(\Mage::getVersion() === "1.5.1.0")
+                $category->setStoreId(array(0,$_argument['store-id']));
+            else
+                $category->setStoreId($_argument['store-id']);
             $parentCategory = \Mage::getModel('catalog/category')->load($_category_root_id);
             $category->setPath($parentCategory->getPath());
 
@@ -93,7 +97,11 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
                 $category->setIsActive(self::DEFAULT_CATEGORY_STATUS);
                 $category->setDisplayMode('PRODUCTS');
                 $category->setIsAnchor(self::DEFAULT_CATEGORY_ANCHOR);
-                $category->setStoreId($_argument['store-id']);
+
+                if(\Mage::getVersion() === "1.5.1.0")
+                    $category->setStoreId(array(0,$_argument['store-id']));
+                else
+                    $category->setStoreId($_argument['store-id']);
                 $parentCategory = \Mage::getModel('catalog/category')->load($_parent_id);
                 $category->setPath($parentCategory->getPath());
 
