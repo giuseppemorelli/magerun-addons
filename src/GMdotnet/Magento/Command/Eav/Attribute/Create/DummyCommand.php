@@ -13,12 +13,12 @@ use Symfony\Component\Console\Question\Question;
 
 class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
 {
-    var $sizes = array(
+    protected $sizes = array(
         'XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', '37', '38',
         '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56',
         '57', '58', '59', '60',
     );
-    var $designer = array(
+    protected $designer = array(
         '08Sircus', '11 By Boris Bidjan Saberi', '1-100', '3.1 Phillip Lim', '32 Paradis Sprung Frères', '321',
         '3X1', '5 Preview', '69', '7 For All Mankind', '8pm', 'S Max Mara', 'A Diciannoveventitre', 'A.F.Vandevorst',
         'A.L.C.', 'A.P.C.', 'Aalto', 'Ack', 'Adam Lippes', 'Adidas', 'Adidas By Raf Simons', 'Adidas By Stella Mccartney',
