@@ -81,7 +81,7 @@ Argument                        | Description                                   
 
 ### Create Dummy Categories ###
 
-(experimental). Create dummy categories with all default vanilla magento or your custom values.
+Create dummy categories with all default vanilla magento or your custom values.
 
 **Interactive mode** or via **shell arguments** or mixed.
 
@@ -109,9 +109,10 @@ $ n98-magerun.phar eav:attribute:create-dummy-values
 
 Argument                     | Description                                  | Accepted Values                                              |
 :--------------------------- | :--------------------------------------------| :----------------------------------------------------------- |
-`attribute-id`               | Attribute ID to add values                   | only integer
-`values-type`                | Types of Values to create (default integer)  | `int`<br />`string`<br />`color`<br />`size`<br />`designer`
-`values-number`              | Number of Values to create (default 1)       | only integer
+`locale`                     | Locale value in ISO standard like en_US      | only string                                                  |
+`attribute-id`               | Attribute ID to add values                   | only integer                                                 |
+`values-type`                | Types of Values to create (default int)      | `int`<br />`string`<br />`color`<br />`size`<br />`designer` |
+`values-number`              | Number of Values to create (default 1)       | only integer                                                 |
 
 
 ## Requirements
@@ -120,7 +121,7 @@ Argument                     | Description                                  | Ac
 - (tested with php 5.6)
 
 ## Version
-- 0.0.3 (beta)
+- 0.0.4
 
 ## WORK IN PROGRESS
 - create dummy grouped products

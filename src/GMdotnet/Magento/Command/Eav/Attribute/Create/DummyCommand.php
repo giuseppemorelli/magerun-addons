@@ -177,7 +177,7 @@ HELP;
             ->setName('eav:attribute:create-dummy-values')
             ->addArgument('locale', InputArgument::OPTIONAL, 'Locale')
             ->addArgument('attribute-id', InputArgument::OPTIONAL, 'Attribute ID to add values')
-            ->addArgument('values-type', InputArgument::OPTIONAL, 'Types of Values to create (default integer)')
+            ->addArgument('values-type', InputArgument::OPTIONAL, 'Types of Values to create (default int)')
             ->addArgument('values-number', InputArgument::OPTIONAL, 'Number of Values to create (default 1)')
             ->setDescription('Create a dummy values for dropdown attributes [gmdotnet]')
             ->setHelp($help);
@@ -226,7 +226,7 @@ HELP;
                     $output->writeln("<error>" . $e->getMessage() . "</error>");
                     die;
                 }
-                $output->writeln("<comment>" . $i . ") ATTRIBUTE VALUE: '" . $value . "' ADDED!</comment>\r");
+                $output->writeln("<comment>ATTRIBUTE VALUE: '" . $value . "' ADDED!</comment>\r");
             }
         }
     }
