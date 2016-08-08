@@ -15,7 +15,8 @@
   ],
   "require": {
     "php": ">=5.3.3",
-    "magento-hackathon/magento-composer-installer": "*"
+    "magento-hackathon/magento-composer-installer": "*",
+    "fzaninotto/faker": "^1.6"
 
   },
   "require-dev": {

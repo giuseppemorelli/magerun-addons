@@ -11,3 +11,7 @@ GMdotnet_MagerunAddons
 
 ## 0.0.3
 - create sample value for dropdown attributes
+
+## 0.0.4
+- category:create:dummy -> optimized and refactoring + Test Class
+- use Faker library to create values
