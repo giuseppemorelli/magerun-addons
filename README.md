@@ -1,3 +1,8 @@
+[![stable version](https://img.shields.io/badge/stable%20version-0.0.4-green.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/releases/tag/0.0.4)
+[![stable version](https://img.shields.io/badge/packagist-0.0.4-green.svg?style=flat-square)](https://packagist.org/packages/gmdotnet/magerun-addons)
+[![develop](https://img.shields.io/badge/beta%20version-branch%20develop-oran.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/tree/develop)
+[![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/blob/master/LICENSE.txt)
+
 GMdotnet_MagerunAddons
 =======================
 
@@ -119,9 +124,6 @@ Argument                     | Description                                  | Ac
 - (tested with n98-magerun 1.96.1)
 - (tested with magento 1.9.x)
 - (tested with php 5.6)
-
-## Version
-- 0.0.4
 
 ## WORK IN PROGRESS
 - create dummy grouped products
