@@ -4,7 +4,15 @@
 [![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/blob/master/LICENSE.txt)
 
 GMdotnet_MagerunAddons
-=======================
+======================
+
+```
+   ___ __  __    _     _            _     __  __               ___             _      _    _             
+  / __|  \/  |__| |___| |_ _ _  ___| |_  |  \/  |__ _ __ _ ___| _ \_  _ _ _   /_\  __| |__| |___ _ _  ___
+ | (_ | |\/| / _` / _ \  _| ' \/ -_)  _| | |\/| / _` / _` / -_)   / || | ' \ / _ \/ _` / _` / _ \ ' \(_-<
+  \___|_|  |_\__,_\___/\__|_||_\___|\__| |_|  |_\__,_\__, \___|_|_\\_,_|_||_/_/ \_\__,_\__,_\___/_||_/__/
+                                                     |___/                                               
+```
 
 Additional commands for [n98-magerun](https://github.com/netz98/n98-magerun).
 
