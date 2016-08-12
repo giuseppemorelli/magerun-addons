@@ -93,6 +93,7 @@ Argument                        | Description                                   
 - You need to create configurable attributes and insert same values. Then add these attributes to attribute set you want use
 
 ### Create Dummy Categories ###
+#### (This command was included in n98-magerun 1.97.23) 
 
 Create dummy categories with all default vanilla magento or your custom values.
 
@@ -111,8 +112,9 @@ Argument                     | Description                                      
 
 
 ### Create Dummy Attribute Values ###
+#### (This command was included in n98-magerun 1.97.23)
 
-(experimental). Create dummy attribute values (ONLY FOR DROPDOWN ATTRIBUTE)
+Create dummy attribute values (ONLY FOR DROPDOWN ATTRIBUTE)
 
 **Interactive mode** or via **shell arguments** or mixed.
 
@@ -129,7 +131,7 @@ Argument                     | Description                                  | Ac
 
 
 ## Requirements
-- (tested with n98-magerun 1.96.1)
+- (tested with n98-magerun > 1.96.1)
 - (tested with magento 1.9.x)
 - (tested with php 5.6)
 

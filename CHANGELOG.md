@@ -1,17 +1,17 @@
-GMdotnet_MagerunAddons
+# GMdotnet_MagerunAddons
 
 ## 0.0.1
-- create simple products
-- create configurable products
-- create categories
+* New: create dummy simple products
+* New: create dummy configurable products
+* New: create dummy categories
 
 ## 0.0.2
-- create categories in specific store (not only default store)
-- create products in specific website (not only default website)
+* Imp: create categories in specific store (not only default store)
+* Imp: create products in specific website (not only default website)
 
 ## 0.0.3
-- create sample value for dropdown attributes
+* New: create sample value for dropdown attributes
 
 ## 0.0.4
-- category:create:dummy -> optimized and refactoring + Test Class
-- use Faker library to create values
+* Fix: category:create:dummy -> optimized and refactoring + Test Class
+* Imp: use Faker library to create values
