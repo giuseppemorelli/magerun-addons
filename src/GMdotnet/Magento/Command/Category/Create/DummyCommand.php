@@ -122,7 +122,7 @@ class DummyCommand extends \N98\Magento\Command\AbstractMagentoCommand
      *
      * @return array
      */
-    protected function askForArguments($input, $output)
+    private function askForArguments($input, $output)
     {
         $helper = $this->getHelper('question');
         $_argument = array();
