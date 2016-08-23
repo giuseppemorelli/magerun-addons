@@ -15,3 +15,7 @@
 ## 0.0.4
 * Fix: category:create:dummy -> optimized and refactoring + Test Class
 * Imp: use Faker library to create values
+
+## 0.0.5
+* Fix: category:create:dummy - optimized
+* Fix: eav:attribute:create-dummy-values - optimized
