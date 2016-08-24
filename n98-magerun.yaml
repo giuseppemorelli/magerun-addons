@@ -6,3 +6,4 @@ commands:
        - GMdotnet\Magento\Command\Product\Create\DummyCommand
        - GMdotnet\Magento\Command\Category\Create\DummyCommand
        - GMdotnet\Magento\Command\Eav\Attribute\Create\DummyCommand
+       - GMdotnet\Magento\Command\Database\Maintain\CleanCommand

@@ -1,5 +1,5 @@
-[![stable version](https://img.shields.io/badge/stable%20version-0.0.4-green.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/releases/tag/0.0.4)
-[![stable version](https://img.shields.io/badge/packagist-0.0.4-green.svg?style=flat-square)](https://packagist.org/packages/gmdotnet/magerun-addons)
+[![stable version](https://img.shields.io/badge/stable%20version-0.1.0-green.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/releases/tag/0.1.0)
+[![stable version](https://img.shields.io/badge/packagist-0.1.0-green.svg?style=flat-square)](https://packagist.org/packages/gmdotnet/magerun-addons)
 [![develop](https://img.shields.io/badge/beta%20version-branch%20develop-oran.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/tree/develop)
 [![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/blob/master/LICENSE.txt)
 
@@ -92,7 +92,10 @@ Argument                        | Description                                   
 #####CONFIGURABLE PRODUCTS
 - You need to create configurable attributes and insert same values. Then add these attributes to attribute set you want use
 
+---
+
 ### Create Dummy Categories ###
+#### (This command was included in n98-magerun 1.97.23) 
 
 Create dummy categories with all default vanilla magento or your custom values.
 
@@ -109,10 +112,12 @@ Argument                     | Description                                      
 `children-categories-number` | Number of children for each category created (default: 0 - use '-1' for random from 0 to 5) | only integer or -1 for random number from 0 to 5 |
 `category-name-prefix`       | Category Name Prefix (default: 'My Awesome Category')                                       | any                                              |
 
+---
 
 ### Create Dummy Attribute Values ###
+#### (This command was included in n98-magerun 1.97.23)
 
-(experimental). Create dummy attribute values (ONLY FOR DROPDOWN ATTRIBUTE)
+Create dummy attribute values (ONLY FOR DROPDOWN ATTRIBUTE)
 
 **Interactive mode** or via **shell arguments** or mixed.
 
@@ -127,9 +132,39 @@ Argument                     | Description                                  | Ac
 `values-type`                | Types of Values to create (default int)      | `int`<br />`string`<br />`color`<br />`size`<br />`designer` |
 `values-number`              | Number of Values to create (default 1)       | only integer                                                 |
 
+---
+
+### Clean log tables ###
+
+Clean (truncate mysql command) all tables that are used only for statistics or log.
+If you need to reduce database size, this is the command to execute.
+Attention! If you use Magento statistics about visitors, maybe with this command you can lose some data.
+
+```
+$ n98-magerun.phar db:maintain:clean-table
+```
+
+List of tables:
+
+Name                        | 
+:---------------------------|
+dataflow_batch_export       |
+dataflow_batch_import       |
+log_customer                |
+log_quote                   |
+log_summary                 |
+log_summary_type            |
+log_url                     |
+log_url_info                |
+log_visitor                 |
+log_visitor_info            |
+log_visitor_online          |
+report_event                |
+report_viewed_product_index |
+
 
 ## Requirements
-- (tested with n98-magerun 1.96.1)
+- (tested with n98-magerun > 1.96.1)
 - (tested with magento 1.9.x)
 - (tested with php 5.6)
 
