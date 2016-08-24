@@ -129,6 +129,34 @@ Argument                     | Description                                  | Ac
 `values-type`                | Types of Values to create (default int)      | `int`<br />`string`<br />`color`<br />`size`<br />`designer` |
 `values-number`              | Number of Values to create (default 1)       | only integer                                                 |
 
+### Clean log tables ###
+
+Clean (truncate mysql command) all tables that are used only for statistics or log.
+If you need to reduce database size, this is the command to execute.
+Attention! If you use Magento statistics about visitors, maybe with this command you can lose some data.
+
+```
+$ n98-magerun.phar db:maintain:clean-table
+```
+
+List of tables:
+
+Name                        | 
+:---------------------------|
+dataflow_batch_export       |
+dataflow_batch_import       |
+log_customer                |
+log_quote                   |
+log_summary                 |
+log_summary_type            |
+log_url                     |
+log_url_info                |
+log_visitor                 |
+log_visitor_info            |
+log_visitor_online          |
+report_event                |
+report_viewed_product_index |
+
 
 ## Requirements
 - (tested with n98-magerun > 1.96.1)

@@ -19,3 +19,6 @@
 ## 0.0.5
 * Fix: category:create:dummy - optimized
 * Fix: eav:attribute:create-dummy-values - optimized
+
+## 0.1.0
+* New: db:maintain:clean-table - clean magento log tables
