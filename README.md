@@ -183,4 +183,5 @@ Any contribution is highly appreciated. The best way to contribute code is to op
 
 Thanks to [NETZ98](http://www.netz98.de/) for creating this incredible tool.<br />
 Thanks to [Kalen Jordan](https://github.com/kalenjordan) and [Peter Jaap Blaakmeer](https://github.com/peterjaap) to start contributing n98-magerun with their addons.<br />
-Thanks to [lorempixel.com](http://lorempixel.com) for the sample images.
+Thanks to [lorempixel.com](http://lorempixel.com) for the sample images.<br />
+Thanks to [Francois Zaninotto](https://github.com/fzaninotto) for creating [Faker Library](https://github.com/fzaninotto/Faker) used for dummy data values.
