@@ -1,12 +1,12 @@
 {
-  "name": "gmdotnet/magerun-addons",
+  "name": "giuseppemorelli/magerun-addons",
   "description": "Addon commands for N98 MageRun",
   "type": "magento-module",
   "license": "OSL-3.0",
   "support": {
-    "issues": "https://github.com/gmdotnet/GMdotnet_MagerunAddons/issues"
+    "issues": "https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/issues"
   },
-  "homepage": "https://github.com/gmdotnet/GMdotnet_MagerunAddons",
+  "homepage": "https://github.com/giuseppemorelli/GMdotnet_MagerunAddons",
   "keywords": [
     "magento",
     "installer",

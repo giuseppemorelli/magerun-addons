@@ -1,18 +1,11 @@
-[![stable version](https://img.shields.io/badge/stable%20version-0.1.0-green.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/releases/tag/0.1.0)
-[![stable version](https://img.shields.io/badge/packagist-0.1.0-green.svg?style=flat-square)](https://packagist.org/packages/gmdotnet/magerun-addons)
-[![develop](https://img.shields.io/badge/beta%20version-branch%20develop-oran.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/tree/develop)
-[![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/gmdotnet/GMdotnet_MagerunAddons/blob/master/LICENSE.txt)
+[![stable version](https://img.shields.io/badge/stable%20version-0.1.0-green.svg?style=flat-square)](https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/releases/tag/0.1.0)
+[![stable version](https://img.shields.io/badge/packagist-0.1.0-green.svg?style=flat-square)](https://packagist.org/packages/giuseppemorelli/magerun-addons)
+[![develop](https://img.shields.io/badge/beta%20version-branch%20develop-oran.svg?style=flat-square)](https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/tree/develop)
+[![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/blob/master/LICENSE.txt)
 
 GMdotnet_MagerunAddons
 ======================
 
-```
-   ___ __  __    _     _            _     __  __               ___             _      _    _             
-  / __|  \/  |__| |___| |_ _ _  ___| |_  |  \/  |__ _ __ _ ___| _ \_  _ _ _   /_\  __| |__| |___ _ _  ___
- | (_ | |\/| / _` / _ \  _| ' \/ -_)  _| | |\/| / _` / _` / -_)   / || | ' \ / _ \/ _` / _` / _ \ ' \(_-<
-  \___|_|  |_\__,_\___/\__|_||_\___|\__| |_|  |_\__,_\__, \___|_|_\\_,_|_||_/_/ \_\__,_\__,_\___/_||_/__/
-                                                     |___/                                               
-```
 
 Additional commands for [n98-magerun](https://github.com/netz98/n98-magerun).
 
@@ -44,7 +37,7 @@ MAGENTO_ROOT/lib/n98-magerun/modules/
 #### A folder inside the Magento installation (with composer)
 
 ```
-composer require gmdotnet/magerun-addons <last version>
+composer require giuseppemorelli/magerun-addons <last version>
 ```
 
 (you need [modman](https://github.com/colinmollenhour/modman) as a pre-requisite)
