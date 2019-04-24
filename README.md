@@ -1,7 +1,7 @@
-[![stable version](https://img.shields.io/badge/stable%20version-0.1.0-green.svg?style=flat-square)](https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/releases/tag/0.1.0)
+[![stable version](https://img.shields.io/badge/stable%20version-0.1.0-green.svg?style=flat-square)](https://github.com/giuseppemorelli/magerun-addons/releases/tag/0.1.0)
 [![stable version](https://img.shields.io/badge/packagist-0.1.0-green.svg?style=flat-square)](https://packagist.org/packages/giuseppemorelli/magerun-addons)
-[![develop](https://img.shields.io/badge/beta%20version-branch%20develop-oran.svg?style=flat-square)](https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/tree/develop)
-[![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/blob/master/LICENSE.txt)
+[![develop](https://img.shields.io/badge/beta%20version-branch%20develop-oran.svg?style=flat-square)](https://github.com/giuseppemorelli/magerun-addons/tree/develop)
+[![license](https://img.shields.io/badge/license-OSL--3-blue.svg?style=flat-square)](https://github.com/giuseppemorelli/magerun-addons/blob/master/LICENSE.txt)
 
 GMdotnet_MagerunAddons
 ======================

@@ -4,9 +4,9 @@
   "type": "magento-module",
   "license": "OSL-3.0",
   "support": {
-    "issues": "https://github.com/giuseppemorelli/GMdotnet_MagerunAddons/issues"
+    "issues": "https://github.com/giuseppemorelli/magerun-addons/issues"
   },
-  "homepage": "https://github.com/giuseppemorelli/GMdotnet_MagerunAddons",
+  "homepage": "https://github.com/giuseppemorelli/magerun-addons",
   "keywords": [
     "magento",
     "installer",
